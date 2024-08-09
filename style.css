@@ -4,6 +4,18 @@
     font-family: Roboto;
     font-weight: 400;
     color: #dcdedf;
+    animation: fadeInAnimation ease 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 header{
@@ -22,7 +34,6 @@ body{
 }
 
 .profileInput{
-    margin: 0 auto;
     text-align: center;
     margin-top: 100px;
     margin-bottom: 100px;
