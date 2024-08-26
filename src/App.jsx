@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import logoSteam from './assets/logo_steam.png';
 import placeholder from './assets/placeholder.jpg';
+import arrow from './assets/arrow-icon.png';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function ProfileInput() {
           placeholder="https://steamcommunity.com/id/fr_hn/" 
           required 
         />
+        <button type="submit">
+          <img src={arrow} alt="Submit Arrow"/>
+        </button>
       </form>
       <h3>Your profile should be set to public</h3>
     </div>

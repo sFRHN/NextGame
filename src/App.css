@@ -42,6 +42,16 @@ body {
   padding-left: 10px;
 }
 
+.profileInput form button {
+  height: 50px;
+  background-color: #549cc6;
+  border-width: 0px;
+  border-radius: 6px;
+  margin-left: 5px;
+  cursor: pointer;
+  transform: translateY(+19%);
+}
+
 .profileInput h3 {
   padding-top: 8px;
   font-size: 0.8em;
