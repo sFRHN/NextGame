@@ -68,3 +68,23 @@ async function getGameDetails(appId) {
         throw new Error('Failed to get game details: ' + error.message);
     }
 }
+
+async function getRandomGame(profileUrl) {
+
+    try {
+      const steamId = await getSteamId(profileUrl);
+      
+      const ownedGames = await getOwnedGames(steamId);
+      
+      if (!ownedGames || ownedGames.length === 0) {
+        throw new Error('No games found');
+      }
+      
+      // Select and return a random game from the list
+      const randomIndex = Math.floor(Math.random() * ownedGames.length);
+      return ownedGames[randomIndex];
+    } 
+    catch (error) {
+      throw new Error('Failed to get random game: ' + error.message);
+    }
+  }
