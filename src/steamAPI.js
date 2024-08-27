@@ -88,3 +88,5 @@ async function getRandomGame(profileUrl) {
       throw new Error('Failed to get random game: ' + error.message);
     }
   }
+
+export { getSteamId, getOwnedGames, getGameDetails, getRandomGame };
