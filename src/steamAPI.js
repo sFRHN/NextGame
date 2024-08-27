@@ -13,30 +13,58 @@ async function getSteamId(profileUrl) {
     } 
     else {
         // If it's a vanity URL, need to resolve it
-        const response = await fetch(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${STEAM_API_KEY}&vanityurl=${lastPart}`);
-        const data = await response.json();
-
-        if (data.response.success === 1) {
-             return data.response.steamid;
-        } 
-        else {
-            throw new Error('Failed to resolve vanity URL');
+        try {
+            const response = await axios.get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`, {
+                params: {
+                    key: STEAM_API_KEY,
+                    vanityurl: lastPart
+                }
+            });
+            
+            if (response.data.response.success === 1) {
+                return response.data.response.steamid;
+            } 
+            else {
+                throw new Error('Failed to resolve vanity URL');
+            }
+        }
+        catch (error) {
+            throw new Error('Failed to resolve vanity URL: ' + error.message);
         }
     }
 }
 
 async function getOwnedGames(steamId) {
 
-    const response = await fetch(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${STEAM_API_KEY}&steamid=${steamId}&format=json&include_appinfo=1`);
-    const data = await response.json();
-
-    return data.response.games;
+    try {
+        const response = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`, {
+            params: {
+                key: STEAM_API_KEY,
+                steamid: steamId,
+                format: 'json',
+                include_appinfo: 1
+            }
+        });
+        
+        return response.data.response.games;
+    } 
+    catch (error) {
+        throw new Error('Failed to get owned games: ' + error.message);
+    }
 }
 
 async function getGameDetails(appId) {
 
-    const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appId}`);
-    const data = await response.json();
-    
-    return data[appId].data;
+    try {
+        const response = await axios.get(`https://store.steampowered.com/api/appdetails`, {
+            params: {
+                appids: appId
+            }
+        });
+        
+        return response.data[appId].data;
+    } 
+    catch (error) {
+        throw new Error('Failed to get game details: ' + error.message);
+    }
 }
