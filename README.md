@@ -1,4 +1,4 @@
-# Steam Random Game Picker
+# NextGame - Decide what to play next!
 
 This React application allows users to select a random game from their Steam library. It uses the Steam API to fetch user data and display a random game from their collection.
 
