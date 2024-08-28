@@ -1,20 +1,18 @@
 import axios from 'axios';
 
-const STEAM_API_KEY = process.env.STEAM_API_KEY;
+const STEAM_API_KEY = import.meta.env.VITE_STEAM_API_KEY;
+const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/';
 
 async function getSteamId(profileUrl) {
-
     const urlParts = profileUrl.split('/');
-    const lastPart = urlParts[urlParts.length - 1];
+    const lastPart = urlParts[urlParts.length - 1] || urlParts[urlParts.length - 2]; // Handle trailing slash
   
     if (lastPart.match(/^[0-9]+$/)) {
-      // If the last part is all numbers, it's already a Steam ID
-      return lastPart;
+        return lastPart;
     } 
     else {
-        // If it's a vanity URL, need to resolve it
         try {
-            const response = await axios.get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`, {
+            const response = await axios.get(`${CORS_PROXY}http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`, {
                 params: {
                     key: STEAM_API_KEY,
                     vanityurl: lastPart
@@ -29,6 +27,7 @@ async function getSteamId(profileUrl) {
             }
         }
         catch (error) {
+            console.error('Error details:', error.response ? error.response.data : error.message);
             throw new Error('Failed to resolve vanity URL: ' + error.message);
         }
     }
@@ -37,7 +36,7 @@ async function getSteamId(profileUrl) {
 async function getOwnedGames(steamId) {
 
     try {
-        const response = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`, {
+        const response = await axios.get(`${CORS_PROXY}http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/`, {
             params: {
                 key: STEAM_API_KEY,
                 steamid: steamId,
