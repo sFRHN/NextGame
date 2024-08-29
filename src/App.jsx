@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import logoSteam from './assets/logo_steam.png';
-import placeholder from './assets/placeholder.jpg';
+import placeholder from './assets/placeholder.png';
 import arrow from './assets/arrow-icon.png';
 import { getRandomGame } from './steamAPI';
 
@@ -12,8 +12,10 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <ProfileInput onGameSelect={setSelectedGame} />
-      <GamePreview game={selectedGame} />
+      <div className="container">
+        <ProfileInput onGameSelect={setSelectedGame} />
+        <GamePreview game={selectedGame} />
+      </div>
     </div>
   );
 }
@@ -67,6 +69,7 @@ function ProfileInput({ onGameSelect }) {
 function GamePreview({ game }) {
   return (
     <div className="gamePreview" id="gamePreview">
+      <h2 id="title">You should play....</h2>
       <img 
         src={game ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/header.jpg` : placeholder} 
         alt="Game Preview" 
