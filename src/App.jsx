@@ -71,7 +71,7 @@ function GamePreview({ game }) {
     <div className="gamePreview" id="gamePreview">
       <h2 id="title">You should play....</h2>
       <img 
-        src={game ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/header.jpg` : placeholder} 
+        src={game ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${game.appid}/library_600x900.jpg` : placeholder} 
         alt="Game Preview" 
         id="gameImage" 
       />

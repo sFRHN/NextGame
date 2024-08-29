@@ -40,7 +40,7 @@ This React application allows users to select a random game from their Steam lib
 ## Usage
 
 1. Enter your Steam profile URL in the input field.
-2. Click the arrow button to submit.
+2. Click the arrow button or press Enter to submit.
 3. The page will display a random game from your library.
 
 ## Warning
